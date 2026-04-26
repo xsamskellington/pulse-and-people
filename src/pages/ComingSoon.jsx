@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 export default function ComingSoon() {
   useEffect(() => {
-    document.title = 'Pulse & People | Muy pronto'
-  }, [])
+    document.title = 'Pulse & People | Muy pronto';
+  }, []);
 
   return (
     <div className="cs">
@@ -12,21 +12,20 @@ export default function ComingSoon() {
       </div>
 
       <div className="cs__content">
-        <img src="/assets/logo-color.png" alt="Pulse & People" className="cs__logo" />
-
         <div className="cs__divider" />
 
         <p className="cs__eyebrow">Consultora de Recursos Humanos</p>
 
         <h1 className="cs__heading">
-          Estamos<br />
-          <em>construyendo</em><br />
+          Estamos
+          <br />
+          <em>construyendo</em>
+          <br />
           algo para vos.
         </h1>
 
         <p className="cs__sub">
           Muy pronto vas a poder conocer todo lo que tenemos preparado.
-          Mientras tanto, podés escribirnos.
         </p>
 
         <a
@@ -43,5 +42,5 @@ export default function ComingSoon() {
         </a>
       </div>
     </div>
-  )
+  );
 }
