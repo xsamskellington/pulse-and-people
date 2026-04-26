@@ -1,144 +1,51 @@
-import { useState } from 'react'
-import { validateName, validateEmail, validatePhone, filterPhone, filterLetters } from '../../utils/validation'
+import { useContactForm } from '../../hooks/useContactForm'
+import FormField from '../common/FormField'
+import areasOptions from '../../data/areasOptions'
 
 const INITIAL = {
   nombre: '', apellido: '', email: '', telefono: '',
   posicion: '', area: '', presentacion: '',
 }
 
-function validate(form) {
-  const errors = {}
-  const nombre = validateName(form.nombre)
-  if (nombre) errors.nombre = nombre
-  const apellido = validateName(form.apellido)
-  if (apellido) errors.apellido = apellido
-  const email = validateEmail(form.email)
-  if (email) errors.email = email
-  const telefono = validatePhone(form.telefono)
-  if (telefono) errors.telefono = telefono
-  return errors
-}
-
 export default function ContactFormTalento() {
-  const defaultClassName = 'form'
-  const [form, setForm] = useState(INITIAL)
-  const [errors, setErrors] = useState({})
-  const [touched, setTouched] = useState({})
-  const [sent, setSent] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [serverError, setServerError] = useState(null)
-
-  const handleChange = (e) => {
-    let { name, value } = e.target
-    if (name === 'nombre' || name === 'apellido') value = filterLetters(value)
-    if (name === 'telefono') value = filterPhone(value)
-    setForm(f => ({ ...f, [name]: value }))
-    if (touched[name]) {
-      const all = validate({ ...form, [name]: value })
-      setErrors(prev => ({ ...prev, [name]: all[name] }))
-    }
-  }
-
-  const handleBlur = (e) => {
-    const { name } = e.target
-    setTouched(t => ({ ...t, [name]: true }))
-    const all = validate(form)
-    setErrors(prev => ({ ...prev, [name]: all[name] }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const all = validate(form)
-    setErrors(all)
-    setTouched({ nombre: true, apellido: true, email: true, telefono: true })
-    if (Object.keys(all).length > 0) return
-
-    setLoading(true)
-    setServerError(null)
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'talento', ...form }),
-      })
-      if (!res.ok) throw new Error()
-      setSent(true)
-      setTimeout(() => {
-        setSent(false)
-        setForm(INITIAL)
-        setErrors({})
-        setTouched({})
-      }, 3000)
-    } catch {
-      setServerError('Hubo un problema al enviar. Intentá de nuevo o escribinos a comercial@pulseandpeople.com')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fieldProps = (name) => ({
-    name,
-    value: form[name],
-    onChange: handleChange,
-    onBlur: handleBlur,
-  })
-
-  const err = (name) => touched[name] && errors[name]
+  const cn = 'form'
+  const { errors, sent, loading, serverError, fieldProps, err, handleSubmit } = useContactForm(INITIAL, 'talento')
 
   return (
-    <div className={defaultClassName}>
+    <div className={cn}>
       <h3>Registrá tu perfil</h3>
       <p>Te avisamos cuando surjan oportunidades que se ajusten a vos.</p>
       <form onSubmit={handleSubmit} noValidate>
-        <div className={`${defaultClassName}__row`}>
-          <div className={`${defaultClassName}__field${err('nombre') ? ` ${defaultClassName}__field--error` : ''}`}>
-            <label>Nombre</label>
+        <div className={`${cn}__row`}>
+          <FormField label="Nombre" name="nombre" err={err} errors={errors}>
             <input type="text" placeholder="Tu nombre" {...fieldProps('nombre')} />
-            {err('nombre') && <span className={`${defaultClassName}__error`}>{errors.nombre}</span>}
-          </div>
-          <div className={`${defaultClassName}__field${err('apellido') ? ` ${defaultClassName}__field--error` : ''}`}>
-            <label>Apellido</label>
+          </FormField>
+          <FormField label="Apellido" name="apellido" err={err} errors={errors}>
             <input type="text" placeholder="Tu apellido" {...fieldProps('apellido')} />
-            {err('apellido') && <span className={`${defaultClassName}__error`}>{errors.apellido}</span>}
-          </div>
+          </FormField>
         </div>
-        <div className={`${defaultClassName}__row`}>
-          <div className={`${defaultClassName}__field${err('email') ? ` ${defaultClassName}__field--error` : ''}`}>
-            <label>Email</label>
+        <div className={`${cn}__row`}>
+          <FormField label="Email" name="email" err={err} errors={errors}>
             <input type="email" placeholder="tu@email.com" {...fieldProps('email')} />
-            {err('email') && <span className={`${defaultClassName}__error`}>{errors.email}</span>}
-          </div>
-          <div className={`${defaultClassName}__field${err('telefono') ? ` ${defaultClassName}__field--error` : ''}`}>
-            <label>Teléfono</label>
+          </FormField>
+          <FormField label="Teléfono" name="telefono" err={err} errors={errors}>
             <input type="tel" placeholder="+54 9 11 ..." {...fieldProps('telefono')} />
-            {err('telefono') && <span className={`${defaultClassName}__error`}>{errors.telefono}</span>}
-          </div>
+          </FormField>
         </div>
-        <div className={`${defaultClassName}__field`}>
-          <label>Posición buscada</label>
+        <FormField label="Posición buscada" name="posicion" err={err} errors={errors}>
           <input type="text" placeholder="¿Qué tipo de posición buscás?" {...fieldProps('posicion')} />
-        </div>
-        <div className={`${defaultClassName}__field`}>
-          <label>Área de experiencia</label>
+        </FormField>
+        <FormField label="Área de experiencia" name="area" err={err} errors={errors}>
           <select {...fieldProps('area')}>
             <option value="">Seleccioná tu área</option>
-            <option>Recursos Humanos</option>
-            <option>Administración y Finanzas</option>
-            <option>Comercial / Ventas</option>
-            <option>Marketing</option>
-            <option>Tecnología / IT</option>
-            <option>Operaciones / Logística</option>
-            <option>Legal</option>
-            <option>Otro</option>
+            {areasOptions.map(opt => <option key={opt}>{opt}</option>)}
           </select>
-        </div>
-        <div className={`${defaultClassName}__field`}>
-          <label>Presentación breve</label>
+        </FormField>
+        <FormField label="Presentación breve" name="presentacion" err={err} errors={errors}>
           <textarea placeholder="Contanos sobre tu experiencia..." {...fieldProps('presentacion')} />
-        </div>
-        {serverError && <p className={`${defaultClassName}__error`} style={{ marginBottom: '12px' }}>{serverError}</p>}
-        <button type="submit" className={`${defaultClassName}__submit${sent ? ` ${defaultClassName}__submit--sent` : ''}`} disabled={loading}>
+        </FormField>
+        {serverError && <p className={`${cn}__error`} style={{ marginBottom: '12px' }}>{serverError}</p>}
+        <button type="submit" className={`${cn}__submit${sent ? ` ${cn}__submit--sent` : ''}`} disabled={loading}>
           {sent ? '¡Perfil registrado!' : loading ? 'Enviando...' : 'Registrar perfil'}
         </button>
       </form>

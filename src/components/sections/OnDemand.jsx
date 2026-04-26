@@ -1,4 +1,5 @@
 import Reveal from '../common/Reveal'
+import { onDemandPacks, onDemandFeatures } from '../../data/onDemand'
 
 export default function OnDemand() {
   const defaultClassName = 'on-demand'
@@ -17,38 +18,22 @@ export default function OnDemand() {
               diagnosticar, ordenar y acompañar la gestión de personas.
             </p>
             <div className={`${defaultClassName}__packs`}>
-              <a href="#contacto" className={`${defaultClassName}__pack`}>
-                <h4>Diagnóstico Inicial</h4>
-                <span>5 horas &rarr;</span>
-              </a>
-              <a href="#contacto" className={`${defaultClassName}__pack`}>
-                <h4>Acompañamiento Mensual</h4>
-                <span>10 horas &rarr;</span>
-              </a>
-              <a href="#contacto" className={`${defaultClassName}__pack`}>
-                <h4>Partner Estratégico</h4>
-                <span>20 hs/mes &rarr;</span>
-              </a>
+              {onDemandPacks.map((pack) => (
+                <a key={pack.title} href="#contacto" className={`${defaultClassName}__pack`}>
+                  <h4>{pack.title}</h4>
+                  <span>{pack.hours} &rarr;</span>
+                </a>
+              ))}
             </div>
           </Reveal>
           <Reveal>
             <div className={`${defaultClassName}__features`}>
-              <div className={`${defaultClassName}__feature`}>
-                <h4>Diagnóstico</h4>
-                <p>Análisis organizacional, cultural, de estructura, roles y responsabilidades.</p>
-              </div>
-              <div className={`${defaultClassName}__feature`}>
-                <h4>Procesos</h4>
-                <p>Definición y mejora de procesos de RRHH y gestión del desempeño.</p>
-              </div>
-              <div className={`${defaultClassName}__feature`}>
-                <h4>Liderazgo</h4>
-                <p>Acompañamiento a líderes y consulta estratégica para Dirección.</p>
-              </div>
-              <div className={`${defaultClassName}__feature`}>
-                <h4>Flexibilidad</h4>
-                <p>Presencial y/o virtual. Packs mensuales o por períodos definidos.</p>
-              </div>
+              {onDemandFeatures.map((feature) => (
+                <div key={feature.title} className={`${defaultClassName}__feature`}>
+                  <h4>{feature.title}</h4>
+                  <p>{feature.desc}</p>
+                </div>
+              ))}
             </div>
           </Reveal>
         </div>

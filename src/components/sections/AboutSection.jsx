@@ -1,4 +1,5 @@
 import Reveal from '../common/Reveal'
+import values from '../../data/values'
 
 export default function AboutSection() {
   const defaultClassName = 'about'
@@ -29,22 +30,12 @@ export default function AboutSection() {
                 potencial mediante soluciones personalizadas y efectivas.
               </p>
               <div className={`${defaultClassName}__values`}>
-                <div className={`${defaultClassName}__value`}>
-                  <h4>Innovación</h4>
-                  <p>Nuevas formas de agregar valor.</p>
-                </div>
-                <div className={`${defaultClassName}__value`}>
-                  <h4>Compromiso</h4>
-                  <p>Verdaderos socios estratégicos.</p>
-                </div>
-                <div className={`${defaultClassName}__value`}>
-                  <h4>Flexibilidad</h4>
-                  <p>Adaptados a tu cultura.</p>
-                </div>
-                <div className={`${defaultClassName}__value`}>
-                  <h4>Orientación</h4>
-                  <p>Tu éxito es nuestro objetivo.</p>
-                </div>
+                {values.map((v) => (
+                  <div key={v.title} className={`${defaultClassName}__value`}>
+                    <h4>{v.title}</h4>
+                    <p>{v.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>
