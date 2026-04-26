@@ -984,3 +984,121 @@ img { max-width: 100%; height: auto; }
   .photo-banner { height: 280px; }
   .job-item { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+
+/* ===== COMING SOON ===== */
+.cs {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  min-height: 100vh;
+}
+
+.cs__visual {
+  background: linear-gradient(135deg, var(--accent) 0%, #f9a66c 40%, var(--apricot) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+}
+
+.cs__watermark {
+  width: 260px;
+  opacity: 0.15;
+  filter: brightness(0) invert(1);
+}
+
+.cs__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 72px;
+  background: var(--cream);
+  order: 1;
+}
+
+.cs__logo {
+  height: 44px;
+  width: auto;
+  margin-bottom: 36px;
+}
+
+.cs__divider {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 28px;
+}
+
+.cs__eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  margin-bottom: 28px;
+}
+
+.cs__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 28px;
+}
+
+.cs__heading em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.cs__sub {
+  font-size: 16px;
+  color: var(--gray-text);
+  line-height: 1.8;
+  max-width: 420px;
+  margin-bottom: 44px;
+}
+
+.cs__cta {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 30px;
+  background: var(--dark);
+  color: var(--white);
+  border: 1.5px solid var(--dark);
+  transition: all 0.3s;
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
+.cs__cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.cs__email {
+  font-size: 13px;
+  color: var(--gray-mid);
+  transition: color 0.3s;
+}
+
+.cs__email:hover { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .cs {
+    grid-template-columns: 1fr;
+    grid-template-rows: 180px 1fr;
+  }
+  .cs__visual { order: 1; }
+  .cs__content { order: 2; padding: 56px 32px; }
+  .cs__heading { font-size: clamp(36px, 8vw, 52px); }
+}
+
+@media (max-width: 480px) {
+  .cs__content { padding: 44px 24px; }
+}
