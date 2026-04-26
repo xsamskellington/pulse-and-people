@@ -28,27 +28,30 @@ const services = [
 ]
 
 export default function ServicesGrid() {
+  const defaultClassName = 'services'
+  const cardClassName = 'service-card'
+
   return (
-    <section className="section services">
+    <section className={`section ${defaultClassName}`}>
       <div className="container">
         <Reveal>
-          <div className="services-header">
-            <p className="section-label">Nuestros Servicios</p>
-            <h2 className="section-title">Soluciones <em>integrales</em> para tu organización</h2>
-            <p className="section-desc">
+          <div className={`${defaultClassName}__header`}>
+            <p className="section__label">Nuestros Servicios</p>
+            <h2 className="section__title">Soluciones <em>integrales</em> para tu organización</h2>
+            <p className="section__desc">
               Brindamos asesoramiento integral como aliados y socios estratégicos en la detección,
               desarrollo y gestión del talento.
             </p>
           </div>
         </Reveal>
-        <div className="services-grid">
+        <div className={`${defaultClassName}__grid`}>
           {services.map((s) => (
             <Reveal key={s.title}>
-              <div className="service-card">
+              <div className={cardClassName}>
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
-                <span className="arrow-link">Ver más →</span>
-                <div className="service-card-accent" />
+                <span className={`${cardClassName}__link`}>Ver más →</span>
+                <div className={`${cardClassName}__accent`} />
               </div>
             </Reveal>
           ))}

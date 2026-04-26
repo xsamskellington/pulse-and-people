@@ -1,43 +1,45 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Marquee from '../components/common/Marquee'
+import AboutSection from '../components/sections/AboutSection'
 import MissionVision from '../components/sections/MissionVision'
-import ServicesGrid from '../components/sections/ServicesGrid'
 import PhotoBanner from '../components/sections/PhotoBanner'
 
 export default function Home() {
+  const defaultClassName = 'hero'
+
   useEffect(() => {
     document.title = 'Pulse & People | Consultora de Recursos Humanos'
   }, [])
 
   return (
     <>
-      <section className="hero">
-        <div className="hero-text">
-          <h1 className="hero-headline">
+      <section className={defaultClassName}>
+        <div className={`${defaultClassName}__text`}>
+          <h1 className={`${defaultClassName}__headline`}>
             <em>Transformamos</em><br />
             tu gestión de<br />
             <strong>recursos humanos.</strong>
           </h1>
-          <p className="hero-desc">
+          <p className={`${defaultClassName}__desc`}>
             Somos tu socio estratégico en la detección, desarrollo y gestión del talento
             para impactar positivamente en los resultados de tu negocio.
           </p>
-          <div className="hero-buttons">
-            <Link to="/empresas" className="btn-pill btn-pill-dark">Soy Empresa</Link>
-            <Link to="/busco-trabajo" className="btn-pill btn-pill-outline">Busco Trabajo</Link>
+          <div className={`${defaultClassName}__actions`}>
+            <Link to="/empresas" className="btn btn--dark">Soy Empresa</Link>
+            <Link to="/busco-trabajo" className="btn btn--outline">Busco Trabajo</Link>
           </div>
         </div>
-        <div className="hero-image">
-          <img src="/assets/logo-negro.png" alt="" className="hero-image-logo" />
+        <div className={`${defaultClassName}__image`}>
+          <img src="/assets/logo-negro.png" alt="" className={`${defaultClassName}__image-logo`} />
         </div>
       </section>
 
       <Marquee />
 
-      <MissionVision />
+      <AboutSection />
 
-      <ServicesGrid />
+      <MissionVision />
 
       <PhotoBanner
         text="Creamos soluciones"

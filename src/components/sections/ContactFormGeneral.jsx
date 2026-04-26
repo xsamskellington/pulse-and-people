@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { validateName, validateEmail, validatePhone, filterPhone, filterLetters } from '../../utils/validation'
 
-const INITIAL = {
-  nombre: '', apellido: '', email: '', telefono: '',
-  posicion: '', area: '', presentacion: '',
-}
+const INITIAL = { nombre: '', apellido: '', email: '', telefono: '', mensaje: '' }
 
 function validate(form) {
   const errors = {}
@@ -19,7 +16,7 @@ function validate(form) {
   return errors
 }
 
-export default function ContactFormTalento() {
+export default function ContactFormGeneral() {
   const defaultClassName = 'form'
   const [form, setForm] = useState(INITIAL)
   const [errors, setErrors] = useState({})
@@ -60,7 +57,7 @@ export default function ContactFormTalento() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'talento', ...form }),
+        body: JSON.stringify({ type: 'general', ...form }),
       })
       if (!res.ok) throw new Error()
       setSent(true)
@@ -77,19 +74,13 @@ export default function ContactFormTalento() {
     }
   }
 
-  const fieldProps = (name) => ({
-    name,
-    value: form[name],
-    onChange: handleChange,
-    onBlur: handleBlur,
-  })
-
+  const fieldProps = (name) => ({ name, value: form[name], onChange: handleChange, onBlur: handleBlur })
   const err = (name) => touched[name] && errors[name]
 
   return (
     <div className={defaultClassName}>
-      <h3>Registrá tu perfil</h3>
-      <p>Te avisamos cuando surjan oportunidades que se ajusten a vos.</p>
+      <h3>Envianos un mensaje</h3>
+      <p>Completá el formulario y nos contactaremos a la brevedad.</p>
       <form onSubmit={handleSubmit} noValidate>
         <div className={`${defaultClassName}__row`}>
           <div className={`${defaultClassName}__field${err('nombre') ? ` ${defaultClassName}__field--error` : ''}`}>
@@ -116,30 +107,12 @@ export default function ContactFormTalento() {
           </div>
         </div>
         <div className={`${defaultClassName}__field`}>
-          <label>Posición buscada</label>
-          <input type="text" placeholder="¿Qué tipo de posición buscás?" {...fieldProps('posicion')} />
-        </div>
-        <div className={`${defaultClassName}__field`}>
-          <label>Área de experiencia</label>
-          <select {...fieldProps('area')}>
-            <option value="">Seleccioná tu área</option>
-            <option>Recursos Humanos</option>
-            <option>Administración y Finanzas</option>
-            <option>Comercial / Ventas</option>
-            <option>Marketing</option>
-            <option>Tecnología / IT</option>
-            <option>Operaciones / Logística</option>
-            <option>Legal</option>
-            <option>Otro</option>
-          </select>
-        </div>
-        <div className={`${defaultClassName}__field`}>
-          <label>Presentación breve</label>
-          <textarea placeholder="Contanos sobre tu experiencia..." {...fieldProps('presentacion')} />
+          <label>Mensaje</label>
+          <textarea placeholder="¿En qué podemos ayudarte?" {...fieldProps('mensaje')} />
         </div>
         {serverError && <p className={`${defaultClassName}__error`} style={{ marginBottom: '12px' }}>{serverError}</p>}
         <button type="submit" className={`${defaultClassName}__submit${sent ? ` ${defaultClassName}__submit--sent` : ''}`} disabled={loading}>
-          {sent ? '¡Perfil registrado!' : loading ? 'Enviando...' : 'Registrar perfil'}
+          {sent ? '¡Enviado!' : loading ? 'Enviando...' : 'Enviar mensaje'}
         </button>
       </form>
     </div>

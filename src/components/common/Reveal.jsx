@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 export default function Reveal({ children, className = '' }) {
+  const defaultClassName = 'reveal'
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -19,7 +20,7 @@ export default function Reveal({ children, className = '' }) {
   }, [])
 
   return (
-    <div ref={ref} className={`reveal${visible ? ' visible' : ''}${className ? ' ' + className : ''}`}>
+    <div ref={ref} className={`${defaultClassName}${visible ? ` ${defaultClassName}--visible` : ''}${className ? ' ' + className : ''}`}>
       {children}
     </div>
   )

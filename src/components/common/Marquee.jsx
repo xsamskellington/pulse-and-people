@@ -9,12 +9,14 @@ const items = [
 ]
 
 export default function Marquee() {
+  const defaultClassName = 'marquee'
+
   return (
-    <div className="marquee">
-      <div className="marquee-track">
+    <div className={defaultClassName}>
+      <div className={`${defaultClassName}__track`}>
         {[...items, ...items].map((item, i) => (
-          <span key={i} className="marquee-item">
-            {item} <span className="dot" />
+          <span key={i} className={`${defaultClassName}__item`}>
+            {item} <span className={`${defaultClassName}__dot`} />
           </span>
         ))}
       </div>

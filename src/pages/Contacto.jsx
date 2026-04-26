@@ -1,18 +1,16 @@
 import { useEffect } from 'react'
 import Reveal from '../components/common/Reveal'
-import AboutSection from '../components/sections/AboutSection'
-import MissionVision from '../components/sections/MissionVision'
 import ContactInfo from '../components/sections/ContactInfo'
 import ContactFormGeneral from '../components/sections/ContactFormGeneral'
 
-export default function Nosotros() {
+export default function Contacto() {
   const pageHeroClassName = 'page-hero'
   const heroClassName = 'hero'
   const sectionClassName = 'section'
   const defaultClassName = 'contact'
 
   useEffect(() => {
-    document.title = 'Nosotros | Pulse & People'
+    document.title = 'Contacto | Pulse & People'
   }, [])
 
   return (
@@ -20,25 +18,19 @@ export default function Nosotros() {
       <section className={pageHeroClassName}>
         <div className="container">
           <Reveal>
-            <p className={`${sectionClassName}__label`}>Sobre Nosotros</p>
+            <p className={`${sectionClassName}__label`}>Contacto</p>
             <h1 className={`${heroClassName}__headline`}>
-              Personas que<br />
-              <em>entienden</em><br />
-              <strong>a las personas.</strong>
+              ¿En qué podemos<br />
+              <em>ayudarte?</em>
             </h1>
             <p className={`${heroClassName}__desc`}>
-              Somos una consultora fundada con la convicción de que el talento humano es el
-              recurso más valioso de cualquier organización.
+              Contanos sobre tu organización o tu búsqueda laboral y te respondemos a la brevedad.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <AboutSection />
-
-      <MissionVision />
-
-      <section className={`${sectionClassName} ${defaultClassName}`} id="contacto">
+      <section className={`${sectionClassName} ${defaultClassName}`}>
         <div className="container">
           <div className={`${defaultClassName}__grid`}>
             <Reveal>
