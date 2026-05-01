@@ -27,7 +27,7 @@ export default function Home() {
           </p>
           <div className={`${defaultClassName}__actions`}>
             <Link to="/empresas" className="btn btn--dark">Soy Empresa</Link>
-            <Link to="/busco-trabajo" className="btn btn--outline">Busco Trabajo</Link>
+            <Link to="/candidatos" className="btn btn--outline">Candidatos</Link>
           </div>
         </div>
         <div className={`${defaultClassName}__image`}>

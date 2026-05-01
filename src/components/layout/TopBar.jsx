@@ -3,7 +3,7 @@ export default function TopBar() {
 
   return (
     <div className={defaultClassName}>
-      Consultora de Recursos Humanos &mdash; Buenos Aires, Argentina
+      Consultora de Recursos Humanos
     </div>
   )
 }

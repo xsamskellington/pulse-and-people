@@ -4,7 +4,7 @@ import areasOptions from '../../data/areasOptions'
 
 const INITIAL = {
   nombre: '', apellido: '', email: '', telefono: '',
-  posicion: '', area: '', presentacion: '',
+  posicion: '', area: '',
 }
 
 export default function ContactFormTalento() {
@@ -14,7 +14,7 @@ export default function ContactFormTalento() {
   return (
     <div className={cn}>
       <h3>Registrá tu perfil</h3>
-      <p>Te avisamos cuando surjan oportunidades que se ajusten a vos.</p>
+      <p>Nos comunicaremos cuando surjan búsquedas que se adapten a tu perfil.</p>
       <form onSubmit={handleSubmit} noValidate>
         <div className={`${cn}__row`}>
           <FormField label="Nombre" name="nombre" err={err} errors={errors}>
@@ -29,7 +29,7 @@ export default function ContactFormTalento() {
             <input type="email" placeholder="tu@email.com" {...fieldProps('email')} />
           </FormField>
           <FormField label="Teléfono" name="telefono" err={err} errors={errors}>
-            <input type="tel" placeholder="+54 9 11 ..." {...fieldProps('telefono')} />
+            <input type="tel" placeholder="+54 9 ..." {...fieldProps('telefono')} />
           </FormField>
         </div>
         <FormField label="Posición buscada" name="posicion" err={err} errors={errors}>
@@ -41,9 +41,10 @@ export default function ContactFormTalento() {
             {areasOptions.map(opt => <option key={opt}>{opt}</option>)}
           </select>
         </FormField>
-        <FormField label="Presentación breve" name="presentacion" err={err} errors={errors}>
-          <textarea placeholder="Contanos sobre tu experiencia..." {...fieldProps('presentacion')} />
-        </FormField>
+        <div className={`${cn}__field`}>
+          <label>Adjuntá tu CV</label>
+          <input type="file" accept=".pdf,.doc,.docx" />
+        </div>
         {serverError && <p className={`${cn}__error`} style={{ marginBottom: '12px' }}>{serverError}</p>}
         <button type="submit" className={`${cn}__submit${sent ? ` ${cn}__submit--sent` : ''}`} disabled={loading}>
           {sent ? '¡Perfil registrado!' : loading ? 'Enviando...' : 'Registrar perfil'}

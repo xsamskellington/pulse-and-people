@@ -14,7 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/empresas" element={<Empresas />} />
-          <Route path="/busco-trabajo" element={<BuscoTrabajo />} />
+          <Route path="/candidatos" element={<BuscoTrabajo />} />
           <Route path="/contacto" element={<Contacto />} />
         </Routes>
       </Layout>

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import Reveal from '../components/common/Reveal'
-import ContactInfo from '../components/sections/ContactInfo'
 import ContactFormGeneral from '../components/sections/ContactFormGeneral'
 
 export default function Contacto() {
@@ -32,14 +31,9 @@ export default function Contacto() {
 
       <section className={`${sectionClassName} ${defaultClassName}`}>
         <div className="container">
-          <div className={`${defaultClassName}__grid`}>
-            <Reveal>
-              <ContactInfo />
-            </Reveal>
-            <Reveal>
-              <ContactFormGeneral />
-            </Reveal>
-          </div>
+          <Reveal>
+            <ContactFormGeneral />
+          </Reveal>
         </div>
       </section>
     </>

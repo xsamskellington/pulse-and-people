@@ -13,7 +13,7 @@ export default function ContactFormEmpresas() {
 
   return (
     <div className={cn}>
-      <h3>Consultá con nosotros</h3>
+      <h3>Escribinos</h3>
       <p>Completá el formulario y nos contactaremos a la brevedad.</p>
       <form onSubmit={handleSubmit} noValidate>
         <div className={`${cn}__row`}>
@@ -37,7 +37,7 @@ export default function ContactFormEmpresas() {
             <input type="email" placeholder="tu@empresa.com" {...fieldProps('email')} />
           </FormField>
           <FormField label="Teléfono" name="telefono" err={err} errors={errors}>
-            <input type="tel" placeholder="+54 9 11 ..." {...fieldProps('telefono')} />
+            <input type="tel" placeholder="+54 9 ..." {...fieldProps('telefono')} />
           </FormField>
         </div>
         <FormField label="Servicio de interés" name="servicio" err={err} errors={errors}>

@@ -1,15 +1,11 @@
 const missionVision = [
   {
-    title: 'Misión',
+    title: 'Nuestra Misión',
     desc: 'Transformar el capital humano en un motor clave para el éxito empresarial.',
   },
   {
-    title: 'Visión',
+    title: 'Nuestra Visión',
     desc: 'Ser un referente en soluciones de Recursos Humanos en constante crecimiento.',
-  },
-  {
-    title: 'Valores',
-    desc: 'Innovación, compromiso, flexibilidad y orientación al cliente.',
   },
 ]
 

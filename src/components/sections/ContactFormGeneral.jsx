@@ -25,7 +25,7 @@ export default function ContactFormGeneral() {
             <input type="email" placeholder="tu@email.com" {...fieldProps('email')} />
           </FormField>
           <FormField label="Teléfono" name="telefono" err={err} errors={errors}>
-            <input type="tel" placeholder="+54 9 11 ..." {...fieldProps('telefono')} />
+            <input type="tel" placeholder="+54 9 ..." {...fieldProps('telefono')} />
           </FormField>
         </div>
         <FormField label="Mensaje" name="mensaje" err={err} errors={errors}>

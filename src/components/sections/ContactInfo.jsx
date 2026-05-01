@@ -7,12 +7,8 @@ export default function ContactInfo() {
     <div className={`${defaultClassName}__info`}>
       <p className="section__label">Contacto</p>
       <h2 className="section__title">
-        Hablemos sobre cómo <em>podemos ayudarte</em>
+        Estamos para <em>acompañarte</em>
       </h2>
-      <p className="section__desc">
-        Estamos listos para ser tu socio estratégico. Contanos sobre tu organización y te
-        ofreceremos la solución que mejor se adapte.
-      </p>
 
       {contactDetails.map((detail) => (
         <div key={detail.label} className={`${defaultClassName}__detail`}>
@@ -21,7 +17,10 @@ export default function ContactInfo() {
           </div>
           <div>
             <h4>{detail.label}</h4>
-            <p>{detail.value}</p>
+            {detail.href
+              ? <a href={detail.href} target="_blank" rel="noopener noreferrer"><p>{detail.value}</p></a>
+              : <p>{detail.value}</p>
+            }
           </div>
         </div>
       ))}

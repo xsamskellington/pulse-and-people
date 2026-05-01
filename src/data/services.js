@@ -23,6 +23,14 @@ const services = [
     title: 'Eventos Corporativos',
     desc: 'Family Day, Fin de Año, Convenciones y más. Planificación integral para tu equipo.',
   },
+  {
+    title: 'Bienestar Corporativo',
+    desc: 'Propuestas orientadas a generar momentos de pausa y relajación, contribuyendo con la salud y el clima de trabajo.',
+  },
+  {
+    title: 'P&P On Demand',
+    desc: 'Consultoría en RRHH por horas. Una mirada externa, profesional y cercana para diagnosticar, ordenar y acompañar la gestión de personas.',
+  },
 ]
 
 export default services

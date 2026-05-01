@@ -24,8 +24,8 @@ export default function Navbar() {
           <NavLink to="/empresas" className={({ isActive }) => `${defaultClassName}__link${isActive ? ` ${defaultClassName}__link--active` : ''}`} onClick={close}>
             Empresas
           </NavLink>
-          <NavLink to="/busco-trabajo" className={({ isActive }) => `${defaultClassName}__link${isActive ? ` ${defaultClassName}__link--active` : ''}`} onClick={close}>
-            Busco Trabajo
+          <NavLink to="/candidatos" className={({ isActive }) => `${defaultClassName}__link${isActive ? ` ${defaultClassName}__link--active` : ''}`} onClick={close}>
+            Candidatos
           </NavLink>
           <NavLink to="/contacto" className={({ isActive }) => `${defaultClassName}__link${isActive ? ` ${defaultClassName}__link--active` : ''}`} onClick={close}>
             Contacto

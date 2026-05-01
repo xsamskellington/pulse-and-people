@@ -13,8 +13,8 @@ export default function ServicesGrid() {
             <p className="section__label">Nuestros Servicios</p>
             <h2 className="section__title">Soluciones <em>integrales</em> para tu organización</h2>
             <p className="section__desc">
-              Brindamos asesoramiento integral como aliados y socios estratégicos en la detección,
-              desarrollo y gestión del talento.
+              Contribuimos con las empresas en sus desafíos de organización, equipos y cultura,
+              con soluciones prácticas y adaptadas a cada realidad.
             </p>
           </div>
         </Reveal>

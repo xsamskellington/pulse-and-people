@@ -1,5 +1,5 @@
 import Reveal from '../common/Reveal'
-import missionVision from '../../data/missionVision'
+import values from '../../data/values'
 
 export default function MissionVision() {
   const defaultClassName = 'mv'
@@ -8,11 +8,11 @@ export default function MissionVision() {
     <section className={defaultClassName}>
       <div className="container">
         <Reveal>
+          <p className="section__label" style={{ textAlign: 'center', marginBottom: '24px', fontFamily: 'var(--font-heading)', fontStyle: 'italic', textTransform: 'none', letterSpacing: 0, fontSize: '22px' }}>Nuestros Valores</p>
           <div className={`${defaultClassName}__grid`}>
-            {missionVision.map((item) => (
+            {values.map((item) => (
               <div key={item.title} className={`${defaultClassName}__card`}>
                 <h3>{item.title}</h3>
-                <p>{item.desc}</p>
               </div>
             ))}
           </div>

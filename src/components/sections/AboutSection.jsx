@@ -1,5 +1,5 @@
 import Reveal from '../common/Reveal'
-import values from '../../data/values'
+import missionVision from '../../data/missionVision'
 
 export default function AboutSection() {
   const defaultClassName = 'about'
@@ -30,10 +30,10 @@ export default function AboutSection() {
                 potencial mediante soluciones personalizadas y efectivas.
               </p>
               <div className={`${defaultClassName}__values`}>
-                {values.map((v) => (
-                  <div key={v.title} className={`${defaultClassName}__value`}>
-                    <h4>{v.title}</h4>
-                    <p>{v.desc}</p>
+                {missionVision.map((item) => (
+                  <div key={item.title} className={`${defaultClassName}__value`}>
+                    <h4>{item.title}</h4>
+                    <p>{item.desc}</p>
                   </div>
                 ))}
               </div>

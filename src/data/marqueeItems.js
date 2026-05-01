@@ -5,7 +5,8 @@ const marqueeItems = [
   'Transformación Cultural',
   'Comunicación Interna',
   'Eventos Corporativos',
-  'On Demand',
+  'P&P On Demand',
+  'Bienestar Corporativo',
 ]
 
 export default marqueeItems

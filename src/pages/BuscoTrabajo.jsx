@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import Reveal from '../components/common/Reveal'
 import JobsList from '../components/sections/JobsList'
 import ContactFormTalento from '../components/sections/ContactFormTalento'
-import ContactInfo from '../components/sections/ContactInfo'
 
 export default function BuscoTrabajo() {
   const pageHeroClassName = 'page-hero'
@@ -11,7 +10,7 @@ export default function BuscoTrabajo() {
   const defaultClassName = 'contact'
 
   useEffect(() => {
-    document.title = 'Busco Trabajo | Pulse & People'
+    document.title = 'Candidatos | Pulse & People'
   }, [])
 
   return (
@@ -43,14 +42,9 @@ export default function BuscoTrabajo() {
 
       <section className={`${sectionClassName} ${defaultClassName}`} id="perfil">
         <div className="container">
-          <div className={`${defaultClassName}__grid`}>
-            <Reveal>
-              <ContactInfo />
-            </Reveal>
-            <Reveal>
-              <ContactFormTalento />
-            </Reveal>
-          </div>
+          <Reveal>
+            <ContactFormTalento />
+          </Reveal>
         </div>
       </section>
     </>
