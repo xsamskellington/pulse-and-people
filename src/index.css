@@ -161,6 +161,12 @@ img { max-width: 100%; height: auto; }
   flex-wrap: wrap;
 }
 
+.hero__actions .btn {
+  min-width: 160px;
+  text-align: center;
+  justify-content: center;
+}
+
 .hero__image {
   background: linear-gradient(135deg, var(--accent) 0%, #f9a66c 40%, var(--apricot) 100%);
   position: relative;
