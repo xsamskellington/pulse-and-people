@@ -405,6 +405,7 @@ img { max-width: 100%; height: auto; }
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: 1fr;
   gap: 20px;
+  align-items: stretch;
 }
 
 .services__grid > * {
@@ -430,6 +431,7 @@ img { max-width: 100%; height: auto; }
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-height: 200px;
 }
 
 .service-card:hover {
