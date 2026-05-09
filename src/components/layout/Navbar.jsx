@@ -18,7 +18,7 @@ export default function Navbar() {
     <nav className={`${defaultClassName}${scrolled ? ` ${defaultClassName}--scrolled` : ''}`}>
       <div className={`${defaultClassName}__inner`}>
         <Link to="/" className={`${defaultClassName}__logo`} onClick={() => { close(); window.scrollTo(0, 0) }}>
-          <img src="/assets/logo-color.png" alt="Pulse & People" />
+          <img src="/assets/logo-completo-gradiente.png" alt="Pulse & People" />
         </Link>
         <div className={`${defaultClassName}__links${menuOpen ? ` ${defaultClassName}__links--open` : ''}`}>
           <NavLink to="/empresas" className={({ isActive }) => `${defaultClassName}__link${isActive ? ` ${defaultClassName}__link--active` : ''}`} onClick={close}>

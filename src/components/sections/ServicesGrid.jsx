@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import Reveal from '../common/Reveal'
+import ServiceModal from '../common/ServiceModal'
 import services from '../../data/services'
 
 export default function ServicesGrid() {
   const defaultClassName = 'services'
   const cardClassName = 'service-card'
+  const [selected, setSelected] = useState(null)
 
   return (
     <section className={`section ${defaultClassName}`}>
@@ -24,13 +27,25 @@ export default function ServicesGrid() {
               <div className={cardClassName}>
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
-                <span className={`${cardClassName}__link`}>Ver más →</span>
+                {s.detail && (
+                  <span
+                    className={`${cardClassName}__link`}
+                    onClick={() => setSelected(s)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setSelected(s)}
+                  >
+                    Ver más →
+                  </span>
+                )}
                 <div className={`${cardClassName}__accent`} />
               </div>
             </Reveal>
           ))}
         </div>
       </div>
+
+      {selected && <ServiceModal service={selected} onClose={() => setSelected(null)} />}
     </section>
   )
 }
