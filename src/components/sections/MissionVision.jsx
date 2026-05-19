@@ -13,6 +13,7 @@ export default function MissionVision() {
             {values.map((item) => (
               <div key={item.title} className={`${defaultClassName}__card`}>
                 <h3>{item.title}</h3>
+                <p>{item.desc}</p>
               </div>
             ))}
           </div>
