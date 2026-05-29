@@ -1,19 +1,15 @@
 import { useContactForm } from '../../hooks/useContactForm'
 import FormField from '../common/FormField'
-import serviciosOptions from '../../data/serviciosOptions'
 
-const INITIAL = {
-  nombre: '', apellido: '', empresa: '', posicion: '',
-  email: '', telefono: '', servicio: '', mensaje: '',
-}
+const INITIAL = { nombre: '', apellido: '', email: '', telefono: '', mensaje: '' }
 
-export default function ContactFormEmpresas() {
+export default function ContactFormGeneral() {
   const cn = 'form'
-  const { errors, sent, loading, serverError, fieldProps, err, handleSubmit } = useContactForm(INITIAL, 'empresa')
+  const { errors, sent, loading, serverError, fieldProps, err, handleSubmit } = useContactForm(INITIAL, 'general')
 
   return (
     <div className={cn}>
-      <h3>Escribinos</h3>
+      <h3>Envianos un mensaje</h3>
       <p>Completá el formulario y nos contactaremos a la brevedad.</p>
       <form onSubmit={handleSubmit} noValidate>
         <div className={`${cn}__row`}>
@@ -25,33 +21,19 @@ export default function ContactFormEmpresas() {
           </FormField>
         </div>
         <div className={`${cn}__row`}>
-          <FormField label="Empresa" name="empresa" err={err} errors={errors}>
-            <input type="text" placeholder="Nombre de la empresa" {...fieldProps('empresa')} />
-          </FormField>
-          <FormField label="Posición" name="posicion" err={err} errors={errors}>
-            <input type="text" placeholder="Tu cargo actual" {...fieldProps('posicion')} />
-          </FormField>
-        </div>
-        <div className={`${cn}__row`}>
           <FormField label="Email" name="email" err={err} errors={errors}>
-            <input type="email" placeholder="tu@empresa.com" {...fieldProps('email')} />
+            <input type="email" placeholder="tu@email.com" {...fieldProps('email')} />
           </FormField>
           <FormField label="Teléfono" name="telefono" err={err} errors={errors}>
             <input type="tel" placeholder="+54 9 ..." {...fieldProps('telefono')} />
           </FormField>
         </div>
-        <FormField label="Servicio de interés" name="servicio" err={err} errors={errors}>
-          <select {...fieldProps('servicio')}>
-            <option value="">Seleccioná un servicio</option>
-            {serviciosOptions.map(opt => <option key={opt}>{opt}</option>)}
-          </select>
-        </FormField>
         <FormField label="Mensaje" name="mensaje" err={err} errors={errors}>
-          <textarea placeholder="Contanos más sobre lo que necesitás..." {...fieldProps('mensaje')} />
+          <textarea placeholder="¿En qué podemos ayudarte?" {...fieldProps('mensaje')} />
         </FormField>
         {serverError && <p className={`${cn}__error`} style={{ marginBottom: '12px' }}>{serverError}</p>}
         <button type="submit" className={`${cn}__submit${sent ? ` ${cn}__submit--sent` : ''}`} disabled={loading}>
-          {sent ? '¡Enviado!' : loading ? 'Enviando...' : 'Enviar consulta'}
+          {sent ? '¡Enviado!' : loading ? 'Enviando...' : 'Enviar mensaje'}
         </button>
       </form>
     </div>

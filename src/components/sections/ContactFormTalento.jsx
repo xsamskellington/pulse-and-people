@@ -1,66 +1,53 @@
-import { useState } from 'react'
+import { useContactForm } from '../../hooks/useContactForm'
+import FormField from '../common/FormField'
+import areasOptions from '../../data/areasOptions'
+
+const INITIAL = {
+  nombre: '', apellido: '', email: '', telefono: '',
+  posicion: '', area: '',
+}
 
 export default function ContactFormTalento() {
-  const [sent, setSent] = useState(false)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSent(true)
-    setTimeout(() => {
-      setSent(false)
-      e.target.reset()
-    }, 3000)
-  }
+  const cn = 'form'
+  const { errors, sent, loading, serverError, fieldProps, err, handleSubmit } = useContactForm(INITIAL, 'talento')
 
   return (
-    <div className="form-card">
+    <div className={cn}>
       <h3>Registrá tu perfil</h3>
-      <p>Te avisamos cuando surjan oportunidades que se ajusten a vos.</p>
-      <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <div className="form-group">
-            <label>Nombre</label>
-            <input type="text" placeholder="Tu nombre" required />
-          </div>
-          <div className="form-group">
-            <label>Apellido</label>
-            <input type="text" placeholder="Tu apellido" required />
-          </div>
+      <p>Nos comunicaremos cuando surjan búsquedas que se adapten a tu perfil.</p>
+      <form onSubmit={handleSubmit} noValidate>
+        <div className={`${cn}__row`}>
+          <FormField label="Nombre" name="nombre" err={err} errors={errors}>
+            <input type="text" placeholder="Tu nombre" {...fieldProps('nombre')} />
+          </FormField>
+          <FormField label="Apellido" name="apellido" err={err} errors={errors}>
+            <input type="text" placeholder="Tu apellido" {...fieldProps('apellido')} />
+          </FormField>
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="tu@email.com" required />
-          </div>
-          <div className="form-group">
-            <label>Teléfono</label>
-            <input type="tel" placeholder="+54 9 11 ..." />
-          </div>
+        <div className={`${cn}__row`}>
+          <FormField label="Email" name="email" err={err} errors={errors}>
+            <input type="email" placeholder="tu@email.com" {...fieldProps('email')} />
+          </FormField>
+          <FormField label="Teléfono" name="telefono" err={err} errors={errors}>
+            <input type="tel" placeholder="+54 9 ..." {...fieldProps('telefono')} />
+          </FormField>
         </div>
-        <div className="form-group">
-          <label>Posición buscada</label>
-          <input type="text" placeholder="¿Qué tipo de posición buscás?" />
-        </div>
-        <div className="form-group">
-          <label>Área de experiencia</label>
-          <select>
+        <FormField label="Posición buscada" name="posicion" err={err} errors={errors}>
+          <input type="text" placeholder="¿Qué tipo de posición buscás?" {...fieldProps('posicion')} />
+        </FormField>
+        <FormField label="Área de experiencia" name="area" err={err} errors={errors}>
+          <select {...fieldProps('area')}>
             <option value="">Seleccioná tu área</option>
-            <option>Recursos Humanos</option>
-            <option>Administración y Finanzas</option>
-            <option>Comercial / Ventas</option>
-            <option>Marketing</option>
-            <option>Tecnología / IT</option>
-            <option>Operaciones / Logística</option>
-            <option>Legal</option>
-            <option>Otro</option>
+            {areasOptions.map(opt => <option key={opt}>{opt}</option>)}
           </select>
+        </FormField>
+        <div className={`${cn}__field`}>
+          <label>Adjuntá tu CV</label>
+          <input type="file" accept=".pdf,.doc,.docx" />
         </div>
-        <div className="form-group">
-          <label>Presentación breve</label>
-          <textarea placeholder="Contanos sobre tu experiencia..." />
-        </div>
-        <button type="submit" className={`btn-submit${sent ? ' sent' : ''}`}>
-          {sent ? '¡Perfil registrado!' : 'Registrar perfil'}
+        {serverError && <p className={`${cn}__error`} style={{ marginBottom: '12px' }}>{serverError}</p>}
+        <button type="submit" className={`${cn}__submit${sent ? ` ${cn}__submit--sent` : ''}`} disabled={loading}>
+          {sent ? '¡Perfil registrado!' : loading ? 'Enviando...' : 'Registrar perfil'}
         </button>
       </form>
     </div>

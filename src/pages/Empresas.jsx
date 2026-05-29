@@ -1,34 +1,36 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Reveal from '../components/common/Reveal'
 import ServicesGrid from '../components/sections/ServicesGrid'
-import OnDemand from '../components/sections/OnDemand'
 import ContactFormEmpresas from '../components/sections/ContactFormEmpresas'
 import ContactInfo from '../components/sections/ContactInfo'
 
 export default function Empresas() {
+  const pageHeroClassName = 'page-hero'
+  const heroClassName = 'hero'
+  const sectionClassName = 'section'
+  const defaultClassName = 'contact'
+
   useEffect(() => {
     document.title = 'Empresas | Pulse & People'
   }, [])
 
   return (
     <>
-      <section className="page-hero">
+      <section className={pageHeroClassName}>
         <div className="container">
           <Reveal>
-            <p className="section-label">Para Empresas</p>
-            <h1 className="hero-headline">
+            <p className={`${sectionClassName}__label`}>Para Empresas</p>
+            <h1 className={`${heroClassName}__headline`}>
               Tu equipo es tu<br />
               <em>mayor ventaja</em><br />
               <strong>competitiva.</strong>
             </h1>
-            <p className="hero-desc">
-              Potenciamos la gestión de personas en tu organización. Desde la búsqueda del
-              talento hasta el desarrollo cultural, somos el socio estratégico que necesitás.
+            <p className={`${heroClassName}__desc`}>
+              Te acompañamos en cada etapa de la gestión de personas con una mirada cercana,
+              estratégica y orientada a resultados.
             </p>
-            <div className="hero-buttons">
-              <a href="#contacto" className="btn-pill btn-pill-accent">Solicitar consulta</a>
-              <Link to="/nosotros" className="btn-pill btn-pill-outline">Conocer más →</Link>
+            <div className={`${heroClassName}__actions`}>
+              <a href="#contacto" className="btn btn--accent">Contactanos</a>
             </div>
           </Reveal>
         </div>
@@ -36,11 +38,9 @@ export default function Empresas() {
 
       <ServicesGrid />
 
-      <OnDemand />
-
-      <section className="section contact" id="contacto">
+      <section className={`${sectionClassName} ${defaultClassName}`} id="contacto">
         <div className="container">
-          <div className="contact-grid">
+          <div className={`${defaultClassName}__grid`}>
             <Reveal>
               <ContactInfo />
             </Reveal>

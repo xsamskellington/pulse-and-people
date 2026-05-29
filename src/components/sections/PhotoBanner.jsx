@@ -1,8 +1,10 @@
 export default function PhotoBanner({ text, subtext }) {
+  const defaultClassName = 'banner'
+
   return (
-    <div className="photo-banner">
-      <div className="photo-banner-overlay">
-        <div className="photo-banner-text">
+    <div className={defaultClassName}>
+      <div className={`${defaultClassName}__overlay`}>
+        <div className={`${defaultClassName}__text`}>
           <h2>
             {text}<br /><em>{subtext}</em>
           </h2>

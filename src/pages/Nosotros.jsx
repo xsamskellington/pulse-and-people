@@ -3,25 +3,30 @@ import Reveal from '../components/common/Reveal'
 import AboutSection from '../components/sections/AboutSection'
 import MissionVision from '../components/sections/MissionVision'
 import ContactInfo from '../components/sections/ContactInfo'
-import ContactFormEmpresas from '../components/sections/ContactFormEmpresas'
+import ContactFormGeneral from '../components/sections/ContactFormGeneral'
 
 export default function Nosotros() {
+  const pageHeroClassName = 'page-hero'
+  const heroClassName = 'hero'
+  const sectionClassName = 'section'
+  const defaultClassName = 'contact'
+
   useEffect(() => {
     document.title = 'Nosotros | Pulse & People'
   }, [])
 
   return (
     <>
-      <section className="page-hero">
+      <section className={pageHeroClassName}>
         <div className="container">
           <Reveal>
-            <p className="section-label">Sobre Nosotros</p>
-            <h1 className="hero-headline">
+            <p className={`${sectionClassName}__label`}>Sobre Nosotros</p>
+            <h1 className={`${heroClassName}__headline`}>
               Personas que<br />
               <em>entienden</em><br />
               <strong>a las personas.</strong>
             </h1>
-            <p className="hero-desc">
+            <p className={`${heroClassName}__desc`}>
               Somos una consultora fundada con la convicción de que el talento humano es el
               recurso más valioso de cualquier organización.
             </p>
@@ -33,14 +38,14 @@ export default function Nosotros() {
 
       <MissionVision />
 
-      <section className="section contact" id="contacto">
+      <section className={`${sectionClassName} ${defaultClassName}`} id="contacto">
         <div className="container">
-          <div className="contact-grid">
+          <div className={`${defaultClassName}__grid`}>
             <Reveal>
               <ContactInfo />
             </Reveal>
             <Reveal>
-              <ContactFormEmpresas />
+              <ContactFormGeneral />
             </Reveal>
           </div>
         </div>

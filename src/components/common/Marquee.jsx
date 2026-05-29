@@ -1,20 +1,14 @@
-const items = [
-  'Reclutamiento & Selección',
-  'Capacitación',
-  'Clima Organizacional',
-  'Transformación Cultural',
-  'Comunicación Interna',
-  'Eventos Corporativos',
-  'On Demand',
-]
+import marqueeItems from '../../data/marqueeItems'
 
 export default function Marquee() {
+  const defaultClassName = 'marquee'
+
   return (
-    <div className="marquee">
-      <div className="marquee-track">
-        {[...items, ...items].map((item, i) => (
-          <span key={i} className="marquee-item">
-            {item} <span className="dot" />
+    <div className={defaultClassName}>
+      <div className={`${defaultClassName}__track`}>
+        {[...marqueeItems, ...marqueeItems].map((item, i) => (
+          <span key={i} className={`${defaultClassName}__item`}>
+            {item} <span className={`${defaultClassName}__dot`} />
           </span>
         ))}
       </div>

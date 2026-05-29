@@ -1,23 +1,21 @@
 import Reveal from '../common/Reveal'
+import values from '../../data/values'
 
 export default function MissionVision() {
+  const defaultClassName = 'mv'
+
   return (
-    <section className="mv-strip">
+    <section className={defaultClassName}>
       <div className="container">
         <Reveal>
-          <div className="mv-grid">
-            <div className="mv-card">
-              <h3>Misión</h3>
-              <p>Transformar el capital humano en un motor clave para el éxito empresarial.</p>
-            </div>
-            <div className="mv-card">
-              <h3>Visión</h3>
-              <p>Ser un referente en soluciones de Recursos Humanos en constante crecimiento.</p>
-            </div>
-            <div className="mv-card">
-              <h3>Valores</h3>
-              <p>Innovación, compromiso, flexibilidad y orientación al cliente.</p>
-            </div>
+          <p className="section__label" style={{ textAlign: 'center', marginBottom: '24px', fontFamily: 'var(--font-heading)', fontStyle: 'italic', textTransform: 'none', letterSpacing: 0, fontSize: '22px' }}>Nuestros Valores</p>
+          <div className={`${defaultClassName}__grid`}>
+            {values.map((item) => (
+              <div key={item.title} className={`${defaultClassName}__card`}>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </div>
+            ))}
           </div>
         </Reveal>
       </div>
