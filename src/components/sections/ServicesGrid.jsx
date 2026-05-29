@@ -24,19 +24,18 @@ export default function ServicesGrid() {
         <div className={`${defaultClassName}__grid`}>
           {services.map((s) => (
             <Reveal key={s.title}>
-              <div className={cardClassName}>
+              <div
+                className={cardClassName}
+                onClick={() => s.detail && setSelected(s)}
+                role={s.detail ? 'button' : undefined}
+                tabIndex={s.detail ? 0 : undefined}
+                onKeyDown={(e) => e.key === 'Enter' && s.detail && setSelected(s)}
+                style={s.detail ? { cursor: 'pointer' } : undefined}
+              >
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
                 {s.detail && (
-                  <span
-                    className={`${cardClassName}__link`}
-                    onClick={() => setSelected(s)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && setSelected(s)}
-                  >
-                    Ver más →
-                  </span>
+                  <span className={`${cardClassName}__link`}>Ver más →</span>
                 )}
                 <div className={`${cardClassName}__accent`} />
               </div>

@@ -10,6 +10,11 @@ export default function AboutSection() {
         <div className={`${defaultClassName}__grid`}>
           <Reveal>
             <div className={`${defaultClassName}__photo`}>
+              <img
+                src="/assets/nosotros-equipo.avif"
+                alt="Equipo de trabajo"
+                className={`${defaultClassName}__photo-img`}
+              />
               <div className={`${defaultClassName}__photo-overlay`}>
                 <blockquote>
                   "El Consultor cumple un rol estratégico, es un verdadero socio que contribuye

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Marquee from '../components/common/Marquee';
 import AboutSection from '../components/sections/AboutSection';
 import MissionVision from '../components/sections/MissionVision';
+import ServicesGrid from '../components/sections/ServicesGrid';
 import PhotoBanner from '../components/sections/PhotoBanner';
 
 export default function Home() {
@@ -38,9 +39,9 @@ export default function Home() {
         </div>
         <div className={`${defaultClassName}__image`}>
           <img
-            src="/assets/logo-completo-gradiente.png"
-            alt=""
-            className={`${defaultClassName}__image-logo`}
+            src="/assets/busqueda-talento-naranja.png"
+            alt="Búsqueda de talento"
+            className={`${defaultClassName}__image-hero`}
           />
         </div>
       </section>
@@ -50,6 +51,8 @@ export default function Home() {
       <AboutSection />
 
       <MissionVision />
+
+      <ServicesGrid />
 
       <PhotoBanner
         text="Creamos soluciones"
