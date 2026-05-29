@@ -15,12 +15,6 @@ export default function AboutSection() {
                 alt="Equipo de trabajo"
                 className={`${defaultClassName}__photo-img`}
               />
-              <div className={`${defaultClassName}__photo-overlay`}>
-                <blockquote>
-                  "El Consultor cumple un rol estratégico, es un verdadero socio que contribuye
-                  al logro de los objetivos de nuestros clientes."
-                </blockquote>
-              </div>
             </div>
           </Reveal>
           <Reveal>
