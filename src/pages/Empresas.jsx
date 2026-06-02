@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import Reveal from '../components/common/Reveal'
-import ServicesGrid from '../components/sections/ServicesGrid'
 import ContactFormEmpresas from '../components/sections/ContactFormEmpresas'
 import ContactInfo from '../components/sections/ContactInfo'
 
@@ -35,8 +34,6 @@ export default function Empresas() {
           </Reveal>
         </div>
       </section>
-
-      <ServicesGrid />
 
       <section className={`${sectionClassName} ${defaultClassName}`} id="contacto">
         <div className="container">
