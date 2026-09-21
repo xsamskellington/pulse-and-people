@@ -7,7 +7,7 @@ const supabase = createClient(
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, DELETE, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-password')
 
   if (req.method === 'OPTIONS') return res.status(200).end()
@@ -17,6 +17,10 @@ export default async function handler(req, res) {
   }
 
   const { method, body } = req
+
+  if (method === 'GET') {
+    return res.status(200).json({ ok: true })
+  }
 
   if (method === 'POST') {
     const { data, error } = await supabase

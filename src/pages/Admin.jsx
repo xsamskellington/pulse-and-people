@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 
 const STORAGE_KEY = 'pp_admin_auth'
-
 const emptyForm = { titulo: '', empresa: '', modalidad: '', ubicacion: '', descripcion: '' }
 
 export default function Admin() {
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [auth, setAuth] = useState(() => sessionStorage.getItem(STORAGE_KEY) || '')
+  const [loginLoading, setLoginLoading] = useState(false)
   const [error, setError] = useState('')
   const [vacantes, setVacantes] = useState([])
   const [form, setForm] = useState(emptyForm)
+  const [formErrors, setFormErrors] = useState({})
   const [editing, setEditing] = useState(null)
   const [saving, setSaving] = useState(false)
   const [msg, setMsg] = useState('')
@@ -27,11 +29,22 @@ export default function Admin() {
     setVacantes(data || [])
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault()
+    setLoginLoading(true)
+    setError('')
+    const res = await fetch('/api/vacancies', {
+      method: 'GET',
+      headers: { 'x-admin-password': password },
+    })
+    if (res.status === 401) {
+      setError('Contraseña incorrecta')
+      setLoginLoading(false)
+      return
+    }
     sessionStorage.setItem(STORAGE_KEY, password)
     setAuth(password)
-    setError('')
+    setLoginLoading(false)
   }
 
   async function apiCall(method, body) {
@@ -43,24 +56,33 @@ export default function Admin() {
     if (res.status === 401) {
       sessionStorage.removeItem(STORAGE_KEY)
       setAuth('')
-      setError('Contraseña incorrecta')
+      setError('Sesión expirada. Ingresá de nuevo.')
       return null
     }
     return res.json()
   }
 
+  function validate() {
+    const errors = {}
+    if (!form.titulo.trim()) errors.titulo = 'Requerido'
+    if (!form.empresa.trim()) errors.empresa = 'Requerido'
+    if (!form.modalidad.trim()) errors.modalidad = 'Requerido'
+    if (!form.ubicacion.trim()) errors.ubicacion = 'Requerido'
+    return errors
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
+    const errors = validate()
+    if (Object.keys(errors).length > 0) { setFormErrors(errors); return }
+    setFormErrors({})
     setSaving(true)
     setMsg('')
-    let result
-    if (editing) {
-      result = await apiCall('PUT', { id: editing, ...form, activa: true })
-    } else {
-      result = await apiCall('POST', { ...form, activa: true })
-    }
+    const result = editing
+      ? await apiCall('PUT', { id: editing, ...form, activa: true })
+      : await apiCall('POST', { ...form, activa: true })
     if (result && !result.error) {
-      setMsg(editing ? 'Vacante actualizada.' : 'Vacante agregada.')
+      setMsg(editing ? 'Vacante actualizada.' : '¡Vacante publicada!')
       setForm(emptyForm)
       setEditing(null)
       await loadVacantes()
@@ -78,6 +100,8 @@ export default function Admin() {
 
   function handleEdit(v) {
     setEditing(v.id)
+    setFormErrors({})
+    setMsg('')
     setForm({ titulo: v.titulo, empresa: v.empresa, modalidad: v.modalidad, ubicacion: v.ubicacion, descripcion: v.descripcion || '' })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -88,16 +112,23 @@ export default function Admin() {
         <form onSubmit={handleLogin} className="admin-login__form">
           <img src="/assets/logo-color.png" alt="Pulse & People" className="admin-login__logo" />
           <h1>Panel de administración</h1>
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoFocus
-          />
+          <div className="admin-login__input-wrap">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoFocus
+            />
+            <button type="button" className="admin-login__eye" onClick={() => setShowPassword(v => !v)}>
+              {showPassword ? '🙈' : '👁️'}
+            </button>
+          </div>
           {error && <p className="admin-login__error">{error}</p>}
-          <button type="submit">Ingresar</button>
+          <button type="submit" disabled={loginLoading}>
+            {loginLoading ? 'Verificando...' : 'Ingresar'}
+          </button>
         </form>
       </div>
     )
@@ -118,16 +149,20 @@ export default function Admin() {
           <h2>{editing ? 'Editar vacante' : 'Agregar nueva vacante'}</h2>
           <form onSubmit={handleSubmit} className="admin__form">
             <label>Título del puesto *
-              <input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} required />
+              <input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} />
+              {formErrors.titulo && <span className="admin__field-error">{formErrors.titulo}</span>}
             </label>
             <label>Empresa / Cliente *
-              <input value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} required />
+              <input value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} />
+              {formErrors.empresa && <span className="admin__field-error">{formErrors.empresa}</span>}
             </label>
             <label>Modalidad *
-              <input value={form.modalidad} onChange={(e) => setForm({ ...form, modalidad: e.target.value })} placeholder="Ej: Remoto, Híbrido, Presencial" required />
+              <input value={form.modalidad} onChange={(e) => setForm({ ...form, modalidad: e.target.value })} placeholder="Ej: Remoto, Híbrido, Presencial" />
+              {formErrors.modalidad && <span className="admin__field-error">{formErrors.modalidad}</span>}
             </label>
             <label>Ubicación *
-              <input value={form.ubicacion} onChange={(e) => setForm({ ...form, ubicacion: e.target.value })} placeholder="Ej: Buenos Aires" required />
+              <input value={form.ubicacion} onChange={(e) => setForm({ ...form, ubicacion: e.target.value })} placeholder="Ej: Buenos Aires" />
+              {formErrors.ubicacion && <span className="admin__field-error">{formErrors.ubicacion}</span>}
             </label>
             <label>Descripción / Requisitos
               <textarea rows={5} value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} placeholder="Detallá el rol, requisitos, condiciones..." />
@@ -135,7 +170,7 @@ export default function Admin() {
             {msg && <p className="admin__msg">{msg}</p>}
             <div className="admin__form-actions">
               <button type="submit" disabled={saving}>{saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Publicar vacante'}</button>
-              {editing && <button type="button" onClick={() => { setEditing(null); setForm(emptyForm) }}>Cancelar</button>}
+              {editing && <button type="button" onClick={() => { setEditing(null); setForm(emptyForm); setFormErrors({}) }}>Cancelar</button>}
             </div>
           </form>
         </div>
