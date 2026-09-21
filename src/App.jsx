@@ -6,20 +6,26 @@ import Empresas from './pages/Empresas'
 import BuscoTrabajo from './pages/BuscoTrabajo'
 import Contacto from './pages/Contacto'
 import Nosotros from './pages/Nosotros'
+import Admin from './pages/Admin'
 
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/empresas" element={<Empresas />} />
-          <Route path="/candidatos" element={<BuscoTrabajo />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/admin" element={<Admin />} />
+        <Route path="*" element={
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/empresas" element={<Empresas />} />
+              <Route path="/candidatos" element={<BuscoTrabajo />} />
+              <Route path="/contacto" element={<Contacto />} />
+              <Route path="/nosotros" element={<Nosotros />} />
+            </Routes>
+          </Layout>
+        } />
+      </Routes>
     </BrowserRouter>
   )
 }

@@ -1,9 +1,24 @@
+import { useState, useEffect } from 'react'
 import Reveal from '../common/Reveal'
-
-const openJobs = []
+import { supabase } from '../../lib/supabase'
 
 export default function JobsList() {
   const defaultClassName = 'jobs'
+  const [vacantes, setVacantes] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [expanded, setExpanded] = useState(null)
+
+  useEffect(() => {
+    supabase
+      .from('vacantes')
+      .select('*')
+      .eq('activa', true)
+      .order('creada_en', { ascending: false })
+      .then(({ data }) => {
+        setVacantes(data || [])
+        setLoading(false)
+      })
+  }, [])
 
   return (
     <section className={`section ${defaultClassName}`}>
@@ -19,14 +34,33 @@ export default function JobsList() {
         </Reveal>
         <Reveal>
           <div className={`${defaultClassName}__list`}>
-            {openJobs.length > 0 ? (
-              openJobs.map((job) => (
+            {loading ? (
+              <div className={`${defaultClassName}__empty`}>
+                <p>Cargando búsquedas...</p>
+              </div>
+            ) : vacantes.length > 0 ? (
+              vacantes.map((job) => (
                 <div key={job.id} className={`${defaultClassName}__item`}>
                   <div className={`${defaultClassName}__info`}>
-                    <h4>{job.title}</h4>
-                    <p>{job.company} &mdash; {job.location}</p>
+                    <h4>{job.titulo}</h4>
+                    <p>{job.empresa} &mdash; {job.ubicacion}</p>
                   </div>
-                  <span className={`${defaultClassName}__tag`}>{job.type}</span>
+                  <div className={`${defaultClassName}__item-right`}>
+                    <span className={`${defaultClassName}__tag`}>{job.modalidad}</span>
+                    {job.descripcion && (
+                      <button
+                        className={`${defaultClassName}__toggle`}
+                        onClick={() => setExpanded(expanded === job.id ? null : job.id)}
+                      >
+                        {expanded === job.id ? 'Ver menos ↑' : 'Ver más ↓'}
+                      </button>
+                    )}
+                  </div>
+                  {expanded === job.id && job.descripcion && (
+                    <div className={`${defaultClassName}__desc`}>
+                      <p>{job.descripcion}</p>
+                    </div>
+                  )}
                 </div>
               ))
             ) : (
